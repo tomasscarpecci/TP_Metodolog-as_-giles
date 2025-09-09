@@ -13,3 +13,10 @@ def test_adivino_letra_no_en_palabra():
     resultado = juego.adivinar_letra("z")
     assert resultado is False
     assert "z" in juego.letras_erroneas
+
+def test_adivino_palabra_y_acierto():
+    juego = JuegoAhorcado()
+    juego.iniciar_juego("Python")
+    juego.adivinar_palabra("Python")
+    assert juego.victoria is True
+    assert juego.mostrar_letras_acertadas() == "python"
