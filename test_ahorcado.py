@@ -20,6 +20,7 @@ def test_adivino_letra_no_en_palabra():
     resultado = juego.adivinar_letra("z")
     assert resultado is False
     assert "z" in juego.letras_erroneas
+    assert juego.vidas == 5
 
 def test_adivino_palabra_y_acierto():
     juego = JuegoAhorcado("python")
@@ -30,3 +31,11 @@ def test_adivino_palabra_y_no_acierto():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_palabra("java")
     assert resultado is False
+    assert juego.vidas == 5
+    
+def test_mostrar_letras_acertadas():
+    juego = JuegoAhorcado("python")
+    juego.adivinar_letra("p")
+    juego.adivinar_letra("o")
+    resultado = juego.mostrar_letras_acertadas()
+    assert resultado == ["p", "o"]
