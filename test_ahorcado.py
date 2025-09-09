@@ -1,6 +1,13 @@
 import pytest
 from ahorcado import JuegoAhorcado
 
+def test_inicio_juego_correctamente():
+    juego = JuegoAhorcado("python")
+    assert juego.palabra == "python"
+    assert juego.vidas == 6
+    assert juego.letras_acertadas == []
+    assert juego.letras_erroneas == []
+
 def test_adivino_letra_en_palabra():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_letra("p")
