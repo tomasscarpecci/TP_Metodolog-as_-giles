@@ -15,5 +15,7 @@ class JuegoAhorcado:
             return False
         
     def adivinar_palabra(self, intento):
-        return intento == self.palabra
-        
+        if intento == self.palabra:
+            return True
+        else:
+            return False  
