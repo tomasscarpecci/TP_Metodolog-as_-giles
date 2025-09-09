@@ -3,6 +3,7 @@ import random
 class JuegoAhorcado:
     def __init__(self, palabra):
         self.palabra = palabra
+        self.vidas = 6
         self.letras_acertadas = []
         self.letras_erroneas = []
 
@@ -12,10 +13,12 @@ class JuegoAhorcado:
             return True
         else:
             self.letras_erroneas.append(letra)
+            self.vidas -= 1
             return False
         
     def adivinar_palabra(self, intento):
         if intento == self.palabra:
             return True
         else:
+            self.vidas -= 1
             return False  
