@@ -25,3 +25,6 @@ class JuegoAhorcado:
         
     def mostrar_letras_acertadas(self):
         return self.letras_acertadas
+    
+    def mostrar_letras_erroneas(self):
+        return self.letras_erroneas
