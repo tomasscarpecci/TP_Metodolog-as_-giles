@@ -18,3 +18,8 @@ def test_adivino_palabra_y_acierto():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_palabra("python")
     assert resultado is True
+
+def test_adivino_palabra_y_no_acierto():
+    juego = JuegoAhorcado("python")
+    resultado = juego.adivinar_palabra("java")
+    assert resultado is False
