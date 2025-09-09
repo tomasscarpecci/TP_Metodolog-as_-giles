@@ -22,3 +22,6 @@ class JuegoAhorcado:
         else:
             self.vidas -= 1
             return False  
+        
+    def mostrar_letras_acertadas(self):
+        return self.letras_acertadas
