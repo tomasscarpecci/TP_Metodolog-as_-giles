@@ -39,3 +39,10 @@ def test_mostrar_letras_acertadas():
     juego.adivinar_letra("o")
     resultado = juego.mostrar_letras_acertadas()
     assert resultado == ["p", "o"]
+
+def test_mostrar_letras_falladas():
+    juego = JuegoAhorcado("python")
+    juego.adivinar_letra("z")
+    juego.adivinar_letra("q")
+    resultado = juego.mostrar_letras_falladas()
+    assert resultado == ["z", "q"]
