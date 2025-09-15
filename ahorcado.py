@@ -28,3 +28,6 @@ class JuegoAhorcado:
     
     def mostrar_letras_erroneas(self):
         return self.letras_erroneas
+    
+    def esta_derrotado(self):
+        return self.vidas <= 0
