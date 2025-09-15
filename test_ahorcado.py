@@ -46,3 +46,10 @@ def test_mostrar_letras_erroneas():
     juego.adivinar_letra("q")
     resultado = juego.mostrar_letras_erroneas()
     assert resultado == ["z", "q"]
+
+def test_derrota_al_llegar_a_cero_vidas():
+    juego = JuegoAhorcado("python")
+    for letra in ["a", "b", "c", "d", "e", "f"]:  # 6 errores
+        juego.adivinar_letra(letra)
+    assert juego.vidas == 0
+    assert juego.esta_derrotado() is True
