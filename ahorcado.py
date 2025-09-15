@@ -31,3 +31,6 @@ class JuegoAhorcado:
     
     def esta_derrotado(self):
         return self.vidas <= 0
+    
+    def quitar_vida(self):
+        self.vidas -= 1
