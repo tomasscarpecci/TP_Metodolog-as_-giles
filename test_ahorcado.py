@@ -53,3 +53,8 @@ def test_derrota_al_llegar_a_cero_vidas():
         juego.adivinar_letra(letra)
     assert juego.vidas == 0
     assert juego.esta_derrotado() is True
+
+def test_quitar_vida_metodo():
+    juego = JuegoAhorcado("python")
+    juego.quitar_vida()
+    assert juego.vidas == 5
