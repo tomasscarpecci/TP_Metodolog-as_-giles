@@ -13,7 +13,6 @@ class JuegoAhorcado:
             return True
         else:
             self.letras_erroneas.append(letra)
-            self.vidas -= 1
             return False
         
     def adivinar_palabra(self, intento):
@@ -33,4 +32,5 @@ class JuegoAhorcado:
         return self.vidas <= 0
     
     def quitar_vida(self):
-        self.vidas -= 1
+        if self.vidas > 0:
+            self.vidas -= 1
