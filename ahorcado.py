@@ -1,4 +1,5 @@
 import random
+import string
 
 class JuegoAhorcado:
     def __init__(self, palabra):
@@ -35,3 +36,6 @@ class JuegoAhorcado:
     def quitar_vida(self):
         if self.vidas > 0:
             self.vidas -= 1
+
+    def validar_letra(self, letra):
+        return len(letra) == 1 and letra in string.ascii_letters
