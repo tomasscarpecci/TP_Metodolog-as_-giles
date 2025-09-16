@@ -9,11 +9,16 @@ class JuegoAhorcado:
         self.letras_erroneas = []
 
     def adivinar_letra(self, letra):
+        if not self.validar_letra(letra):
+            raise ValueError("La letra debe ser un caracter alfabético único.")
+        
         if letra in self.palabra:
-            self.letras_acertadas.append(letra)
+            if letra not in self.letras_acertadas:
+                self.letras_acertadas.append(letra)
             return True
         else:
-            self.letras_erroneas.append(letra)
+            if letra not in self.letras_erroneas:
+                self.letras_erroneas.append(letra)
             self.quitar_vida()
             return False
         

@@ -8,6 +8,8 @@ def test_inicio_juego_correctamente():
     assert juego.letras_acertadas == []
     assert juego.letras_erroneas == []
 
+# Adivinar letras y palabras
+
 def test_adivino_letra_en_palabra():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_letra("p")
@@ -31,6 +33,8 @@ def test_adivino_palabra_y_no_acierto():
     resultado = juego.adivinar_palabra("java")
     assert resultado is False
     
+# Mostrar letras acertadas y erroneas
+
 def test_mostrar_letras_acertadas():
     juego = JuegoAhorcado("python")
     juego.adivinar_letra("p")
@@ -44,6 +48,8 @@ def test_mostrar_letras_erroneas():
     juego.adivinar_letra("q")
     resultado = juego.mostrar_letras_erroneas()
     assert resultado == ["z", "q"]
+
+#Vida y derrota
 
 def test_derrota_al_llegar_a_cero_vidas():
     juego = JuegoAhorcado("python")
@@ -66,6 +72,8 @@ def test_reducir_vida_por_palabra_incorrecta():
     juego = JuegoAhorcado("python")
     juego.adivinar_palabra("java")
     assert juego.vidas == 5
+
+#Validacion de letras
 
 def test_valido_letra_alfabetica():
     juego = JuegoAhorcado("python")
