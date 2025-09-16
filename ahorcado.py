@@ -20,6 +20,7 @@ class JuegoAhorcado:
         if intento == self.palabra:
             return True
         else:
+            self.quitar_vida()
             return False  
         
     def mostrar_letras_acertadas(self):
