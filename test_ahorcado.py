@@ -71,3 +71,10 @@ def test_valido_letra_alfabetica():
     juego = JuegoAhorcado("python")
     assert juego.validar_letra("a") is True
     assert juego.validar_letra("Z") is True
+
+def test_no_valido_letra_no_alfabetica():
+    juego = JuegoAhorcado("python")
+    assert juego.validar_letra("1") is False
+    assert juego.validar_letra("@") is False
+    assert juego.validar_letra("ab") is False
+    assert juego.validar_letra("") is False
