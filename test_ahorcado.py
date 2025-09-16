@@ -66,3 +66,8 @@ def test_reducir_vida_por_palabra_incorrecta():
     juego = JuegoAhorcado("python")
     juego.adivinar_palabra("java")
     assert juego.vidas == 5
+
+def test_valido_letra_alfabetica():
+    juego = JuegoAhorcado("python")
+    assert juego.validar_letra("a") is True
+    assert juego.validar_letra("Z") is True
