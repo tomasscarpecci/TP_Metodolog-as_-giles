@@ -51,6 +51,13 @@ def test_mostrar_letras_erroneas():
 
 #Vida y derrota
 
+def test_no_se_puede_jugar_si_esta_derrotado():
+    juego = JuegoAhorcado("python")
+    juego.vidas = 0
+    with pytest.raises(RuntimeError):
+        juego.adivinar_letra("p")
+    assert juego.esta_terminado() is True
+
 def test_derrota_al_llegar_a_cero_vidas():
     juego = JuegoAhorcado("python")
     for letra in ["a", "b", "c", "d", "e", "f"]:  
