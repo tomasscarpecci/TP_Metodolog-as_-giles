@@ -9,6 +9,10 @@ class JuegoAhorcado:
         self.letras_erroneas = []
 
     def adivinar_letra(self, letra):
+        if self.vidas <= 0:   
+            raise RuntimeError("El juego ya terminó.")
+
+        
         if not self.validar_letra(letra):
             raise ValueError("La letra debe ser un caracter alfabético único.")
         
@@ -44,3 +48,6 @@ class JuegoAhorcado:
 
     def validar_letra(self, letra):
         return len(letra) == 1 and letra in string.ascii_letters
+    
+    def esta_terminado(self):
+        return self.esta_derrotado()
