@@ -2,9 +2,7 @@ import random
 import string
 
 class JuegoAhorcado:
-    def __init__(self, palabra):
-        if " " in palabra:  # ← NUEVA VALIDACIÓN
-            raise ValueError("La palabra no puede contener espacios.")    
+    def __init__(self, palabra):  
         self.palabra = palabra
         self.vidas = 6
         self.letras_acertadas = []
@@ -33,9 +31,10 @@ class JuegoAhorcado:
             return False
         
     def adivinar_palabra(self, intento):
-        
         if self.terminado:
             raise RuntimeError("El juego ya terminó.")
+        
+        self.validar_palabra(intento)
     
         if intento == self.palabra:
             return True
@@ -65,3 +64,11 @@ class JuegoAhorcado:
     def esta_terminado(self):
         return self.esta_derrotado() or self.esta_ganado()
     
+    def validar_palabra(self, palabra):
+        if not palabra:
+            raise ValueError("La palabra no puede estar vacía.")
+        if " " in palabra:
+            raise ValueError("La palabra no puede contener espacios.")
+        if not all(c in string.ascii_letters for c in palabra):
+            raise ValueError("La palabra solo puede contener letras.")
+        return True
