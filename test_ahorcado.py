@@ -7,6 +7,9 @@ def test_inicio_juego_correctamente():
     assert juego.vidas == 6
     assert juego.letras_acertadas == []
     assert juego.letras_erroneas == []
+    assert juego.esta_ganado() is False
+    assert juego.esta_derrotado() is False
+    assert juego.esta_terminado() is False
 
 # Adivinar letras y palabras
 

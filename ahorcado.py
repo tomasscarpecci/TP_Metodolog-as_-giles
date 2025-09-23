@@ -7,11 +7,12 @@ class JuegoAhorcado:
         self.vidas = 6
         self.letras_acertadas = []
         self.letras_erroneas = []
+        self.ganado = False
+        self.terminado = False
 
     def adivinar_letra(self, letra):
-        if self.vidas <= 0:   
+        if self.esta_terminado():
             raise RuntimeError("El juego ya terminó.")
-
         
         if not self.validar_letra(letra):
             raise ValueError("La letra debe ser un caracter alfabético único.")
@@ -19,14 +20,19 @@ class JuegoAhorcado:
         if letra in self.palabra:
             if letra not in self.letras_acertadas:
                 self.letras_acertadas.append(letra)
+            if all(l in self.letras_acertadas for l in set(self.palabra)):
+                self.ganado = True
             return True
         else:
             if letra not in self.letras_erroneas:
                 self.letras_erroneas.append(letra)
-            self.quitar_vida()
+                self.quitar_vida()
             return False
         
     def adivinar_palabra(self, intento):
+        if self.terminado:
+            raise RuntimeError("El juego ya terminó.")
+    
         if intento == self.palabra:
             return True
         else:
@@ -39,6 +45,9 @@ class JuegoAhorcado:
     def mostrar_letras_erroneas(self):
         return self.letras_erroneas
     
+    def esta_ganado(self):
+        return self.ganado
+   
     def esta_derrotado(self):
         return self.vidas <= 0
     
@@ -50,4 +59,4 @@ class JuegoAhorcado:
         return len(letra) == 1 and letra in string.ascii_letters
     
     def esta_terminado(self):
-        return self.esta_derrotado()
+        return self.esta_derrotado() or self.esta_ganado()
