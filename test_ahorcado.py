@@ -95,6 +95,14 @@ def test_reducir_vida_por_palabra_incorrecta():
     juego.adivinar_palabra("java")
     assert juego.vidas == 5
 
+def test_ganar_por_completar_todas_las_letras():
+    juego = JuegoAhorcado("sol")
+    juego.adivinar_letra("s")
+    juego.adivinar_letra("o")
+    juego.adivinar_letra("l")
+    assert juego.esta_ganado() is True
+    assert juego.esta_terminado() is True
+
 #Validacion de letras
 
 def test_valido_letra_alfabetica():
