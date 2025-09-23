@@ -13,6 +13,10 @@ def test_inicio_juego_correctamente():
 
 # Adivinar letras y palabras
 
+def test_no_acepta_palabra_con_espacios():
+    with pytest.raises(ValueError):
+        JuegoAhorcado("Python")
+
 def test_adivino_letra_en_palabra():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_letra("p")
