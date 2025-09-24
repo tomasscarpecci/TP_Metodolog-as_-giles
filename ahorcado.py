@@ -10,6 +10,13 @@ class JuegoAhorcado:
         self.ganado = False
         self.terminado = False
 
+    
+    def seleccionar_palabra_aleatoria(lista_palabras):
+        if not lista_palabras:  # Si la lista está vacía
+            raise ValueError("La lista de palabras no puede estar vacía.")
+        
+        return random.choice(lista_palabras)
+
     def adivinar_letra(self, letra):
         
         if self.esta_terminado():
