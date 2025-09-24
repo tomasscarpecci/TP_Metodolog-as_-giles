@@ -103,6 +103,7 @@ def test_ganar_por_completar_todas_las_letras():
     assert juego.esta_ganado() is True
     assert juego.esta_terminado() is True
 
+
 #Validacion de letras
 
 def test_valido_letra_alfabetica():
@@ -116,3 +117,10 @@ def test_no_valido_letra_no_alfabetica():
     assert juego.validar_letra("@") is False
     assert juego.validar_letra("ab") is False
     assert juego.validar_letra("") is False
+
+#Validacion de lista de palabras
+
+def test_no_acepta_lista_vacia_de_palabras():
+    with pytest.raises(ValueError):
+        JuegoAhorcado.seleccionar_palabra_aleatoria([])
+

@@ -55,7 +55,7 @@ class JuegoAhorcado:
         return self.vidas <= 0
     
     def quitar_vida(self):
-        if self.vidas > 0:
+        if self.vidas > 0:        
             self.vidas -= 1
 
     def validar_letra(self, letra):
