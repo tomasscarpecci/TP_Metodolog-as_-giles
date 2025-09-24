@@ -11,6 +11,16 @@ class JuegoAhorcado:
         self.ganado = False
         self.terminado = False
 
+    def reiniciar_con_palabra(self, nueva_palabra):
+        if " " in nueva_palabra:
+            raise ValueError("La palabra no puede contener espacios.")
+        
+        self.palabra = nueva_palabra.lower()
+        self.vidas = 6
+        self.letras_acertadas = []
+        self.letras_erroneas = []
+        self.ganado = False
+
     
     def seleccionar_palabra_wordfreq(idioma="es", cantidad=50):
         lista_palabras = top_n_list(idioma, cantidad)
