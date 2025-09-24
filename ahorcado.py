@@ -12,9 +12,8 @@ class JuegoAhorcado:
 
     
     def seleccionar_palabra_aleatoria(lista_palabras):
-        if not lista_palabras:  # Si la lista está vacía
+        if not lista_palabras: 
             raise ValueError("La lista de palabras no puede estar vacía.")
-        
         return random.choice(lista_palabras)
 
     def adivinar_letra(self, letra):

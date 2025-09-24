@@ -124,3 +124,7 @@ def test_no_acepta_lista_vacia_de_palabras():
     with pytest.raises(ValueError):
         JuegoAhorcado.seleccionar_palabra_aleatoria([])
 
+def test_seleccionar_palabra_aleatoria_con_wordfreq():
+    palabra = JuegoAhorcado.seleccionar_palabra_wordfreq("es", 50)
+    assert isinstance(palabra, str)
+    assert len(palabra) > 0
