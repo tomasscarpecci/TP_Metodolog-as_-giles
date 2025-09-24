@@ -128,3 +128,19 @@ def test_seleccionar_palabra_aleatoria_con_wordfreq():
     palabra = JuegoAhorcado.seleccionar_palabra_wordfreq("es", 50)
     assert isinstance(palabra, str)
     assert len(palabra) > 0
+
+
+#Reiniciar partida
+def test_reiniciar_con_nueva_palabra():
+    juego = JuegoAhorcado("python")
+
+    juego.adivinar_letra("y")
+    juego.adivinar_letra("w")
+
+    juego.reiniciar_con_palabra("java")
+    
+    assert juego.palabra == "java"
+    assert juego.vidas == 6
+    assert juego.letras_acertadas == []
+    assert juego.letras_erroneas == []
+    assert juego.ganado is False
