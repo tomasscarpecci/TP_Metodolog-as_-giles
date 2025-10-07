@@ -25,6 +25,7 @@ jobs:
         source venv/bin/activate
         pip install --upgrade pip
         pip install pytest flake8 coverage wordfreq
+        pip install pytest pytest-cov flake8 coverage wordfreq
 
     - name: Revisar estilo de código
       run: |
