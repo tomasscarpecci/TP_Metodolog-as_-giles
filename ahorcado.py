@@ -44,7 +44,7 @@ class JuegoAhorcado:
         if letra in self.palabra:
             if letra not in self.letras_acertadas:
                 self.letras_acertadas.append(letra)
-            if all(l in self.letras_acertadas for l in set(self.palabra)):
+            if all(letra in self.letras_acertadas for letra in set(self.palabra)):
                 self.ganado = True
             return True
         else:
