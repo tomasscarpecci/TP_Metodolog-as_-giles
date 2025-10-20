@@ -17,7 +17,6 @@ def test_no_acepta_palabra_con_espacios():
     juego = JuegoAhorcado("Python")
     with pytest.raises(ValueError):
         juego.adivinar_palabra("Py thon")
-    
 
 def test_adivino_letra_en_palabra():
     juego = JuegoAhorcado("python")
@@ -41,7 +40,6 @@ def test_adivino_palabra_y_no_acierto():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_palabra("java")
     assert resultado is False
-
     
 # Mostrar letras acertadas y erroneas
 
@@ -108,7 +106,6 @@ def test_no_se_puede_repetir_letra():
     juego = JuegoAhorcado("python")
     juego.adivinar_letra("p")
     vidas_antes = juego.vidas
-
     with pytest.raises(ValueError):
         juego.adivinar_letra("p")
 
@@ -152,7 +149,6 @@ def test_seleccionar_palabra_aleatoria_con_wordfreq():
     palabra = JuegoAhorcado.seleccionar_palabra_wordfreq("es", 50)
     assert isinstance(palabra, str)
     assert len(palabra) > 0
-
 
 #Reiniciar partida
 def test_reiniciar_con_nueva_palabra():
