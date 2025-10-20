@@ -41,6 +41,8 @@ class JuegoAhorcado:
         if not self.validar_letra(letra):
             raise ValueError("La letra debe ser un caracter alfabético único.")
 
+        letra = letra.lower()
+        
         if letra in self.letras_acertadas or letra in self.letras_erroneas:
               raise ValueError("Ya intentaste esa letra.")
 
