@@ -41,6 +41,9 @@ class JuegoAhorcado:
         if not self.validar_letra(letra):
             raise ValueError("La letra debe ser un caracter alfabético único.")
 
+        if letra in self.letras_acertadas or letra in self.letras_erroneas:
+              raise ValueError("Ya intentaste esa letra.")
+
         if letra in self.palabra:
             if letra not in self.letras_acertadas:
                 self.letras_acertadas.append(letra)
@@ -52,6 +55,7 @@ class JuegoAhorcado:
                 self.letras_erroneas.append(letra)
                 self.quitar_vida()
             return False
+
 
     def adivinar_palabra(self, intento):
         if self.terminado:
