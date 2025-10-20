@@ -41,6 +41,7 @@ def test_adivino_palabra_y_no_acierto():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_palabra("java")
     assert resultado is False
+
     
 # Mostrar letras acertadas y erroneas
 
@@ -118,6 +119,14 @@ def test_no_se_puede_repetir_letra():
 
     assert juego.vidas == vidas_despues_x == vidas_antes - 1
 
+def test_adivinar_letra_mayuscula_funciona_igual():
+    juego = JuegoAhorcado("python")
+    resultado_minuscula = juego.adivinar_letra("p")
+    assert resultado_minuscula is True
+
+    juego = JuegoAhorcado("python")
+    resultado_mayuscula = juego.adivinar_letra("P")
+    assert resultado_mayuscula is True
 
 #Validacion de letras
 
