@@ -103,6 +103,21 @@ def test_ganar_por_completar_todas_las_letras():
     assert juego.esta_ganado() is True
     assert juego.esta_terminado() is True
 
+def test_no_se_puede_repetir_letra():
+    juego = JuegoAhorcado("python")
+    juego.adivinar_letra("p")
+    vidas_antes = juego.vidas
+
+    with pytest.raises(ValueError):
+        juego.adivinar_letra("p")
+
+    juego.adivinar_letra("x")
+    vidas_despues_x = juego.vidas
+    with pytest.raises(ValueError):
+        juego.adivinar_letra("x")
+
+    assert juego.vidas == vidas_despues_x == vidas_antes - 1
+
 
 #Validacion de letras
 
