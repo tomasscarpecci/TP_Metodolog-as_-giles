@@ -5,12 +5,11 @@ from wordfreq import top_n_list
 
 class JuegoAhorcado:
     def __init__(self, palabra):
-        self.palabra = palabra
+        self.palabra = palabra.lower()
         self.vidas = 6
         self.letras_acertadas = []
         self.letras_erroneas = []
         self.ganado = False
-        self.terminado = False
 
     def reiniciar_con_palabra(self, nueva_palabra):
         if " " in nueva_palabra:
@@ -22,48 +21,51 @@ class JuegoAhorcado:
         self.letras_erroneas = []
         self.ganado = False
 
+    @staticmethod
     def seleccionar_palabra_wordfreq(idioma="es", cantidad=50):
         lista_palabras = top_n_list(idioma, cantidad)
         if not lista_palabras:
             raise ValueError("La lista de palabras no puede estar vacía.")
         return random.choice(lista_palabras)
 
+    @staticmethod
     def seleccionar_palabra_aleatoria(lista_palabras):
         if not lista_palabras:
             raise ValueError("La lista de palabras no puede estar vacía.")
         return random.choice(lista_palabras)
 
     def adivinar_letra(self, letra):
+        letra = letra.lower()
 
         if self.esta_terminado():
             raise RuntimeError("El juego ya terminó.")
 
         if not self.validar_letra(letra):
             raise ValueError("La letra debe ser un caracter alfabético único.")
-        letra = letra.lower()
 
         if letra in self.letras_acertadas or letra in self.letras_erroneas:
             raise ValueError("Ya intentaste esa letra.")
 
         if letra in self.palabra:
-            if letra not in self.letras_acertadas:
-                self.letras_acertadas.append(letra)
-            if all(letra in self.letras_acertadas for letra in set(self.palabra)):
+            self.letras_acertadas.append(letra)
+            if all(let in self.letras_acertadas for let in set(self.palabra)):
                 self.ganado = True
             return True
         else:
-            if letra not in self.letras_erroneas:
-                self.letras_erroneas.append(letra)
-                self.quitar_vida()
+            self.letras_erroneas.append(letra)
+            self.quitar_vida()
             return False
 
     def adivinar_palabra(self, intento):
-        if self.terminado:
+        intento = intento.lower()
+
+        if self.esta_terminado():
             raise RuntimeError("El juego ya terminó.")
 
         self.validar_palabra(intento)
 
         if intento == self.palabra:
+            self.ganado = True
             return True
         else:
             self.quitar_vida()
