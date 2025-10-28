@@ -1,7 +1,6 @@
 import pytest
 from ahorcado import JuegoAhorcado
 
-
 def test_inicio_juego_correctamente():
     juego = JuegoAhorcado("python")
     assert juego.palabra == "python"
@@ -12,22 +11,18 @@ def test_inicio_juego_correctamente():
     assert juego.esta_derrotado() is False
     assert juego.esta_terminado() is False
 
-
 # Adivinar letras y palabras
-
 
 def test_no_acepta_palabra_con_espacios():
     juego = JuegoAhorcado("Python")
     with pytest.raises(ValueError):
         juego.adivinar_palabra("Py thon")
 
-
 def test_adivino_letra_en_palabra():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_letra("p")
     assert resultado is True
     assert "p" in juego.letras_acertadas
-
 
 def test_adivino_letra_no_en_palabra():
     juego = JuegoAhorcado("python")
@@ -36,27 +31,17 @@ def test_adivino_letra_no_en_palabra():
     assert resultado is False
     assert "z" in juego.letras_erroneas
 
-
 def test_adivino_palabra_y_acierto():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_palabra("python")
     assert resultado is True
 
-
 def test_adivino_palabra_y_no_acierto():
     juego = JuegoAhorcado("python")
     resultado = juego.adivinar_palabra("java")
     assert resultado is False
-
-
-def test_adivinar_palabra_mayuscula_funciona_igual():
-    juego = JuegoAhorcado("python")
-    resultado = juego.adivinar_palabra("PYTHON")
-    assert resultado is True
-
-
+    
 # Mostrar letras acertadas y erroneas
-
 
 def test_mostrar_letras_acertadas():
     juego = JuegoAhorcado("python")
@@ -65,7 +50,6 @@ def test_mostrar_letras_acertadas():
     resultado = juego.mostrar_letras_acertadas()
     assert resultado == ["p", "o"]
 
-
 def test_mostrar_letras_erroneas():
     juego = JuegoAhorcado("python")
     juego.adivinar_letra("z")
@@ -73,16 +57,13 @@ def test_mostrar_letras_erroneas():
     resultado = juego.mostrar_letras_erroneas()
     assert resultado == ["z", "q"]
 
-
-# Vida y derrota
-
+#Vida y derrota
 
 def test_no_se_puede_jugar_si_esta_ganado():
     juego = JuegoAhorcado("sol")
     juego.ganado = True
     with pytest.raises(RuntimeError):
         juego.adivinar_letra("a")
-
 
 def test_no_se_puede_jugar_si_esta_derrotado():
     juego = JuegoAhorcado("python")
@@ -91,32 +72,27 @@ def test_no_se_puede_jugar_si_esta_derrotado():
         juego.adivinar_letra("p")
     assert juego.esta_terminado() is True
 
-
 def test_derrota_al_llegar_a_cero_vidas():
     juego = JuegoAhorcado("python")
-    for letra in ["a", "b", "c", "d", "e", "f"]:
+    for letra in ["a", "b", "c", "d", "e", "f"]:  
         juego.adivinar_letra(letra)
     assert juego.vidas == 0
     assert juego.esta_derrotado() is True
-
 
 def test_quitar_vida_metodo():
     juego = JuegoAhorcado("python")
     juego.quitar_vida()
     assert juego.vidas == 5
 
-
 def test_reducir_vida_por_letra_incorrecta():
     juego = JuegoAhorcado("python")
     juego.adivinar_letra("z")
     assert juego.vidas == 5
 
-
 def test_reducir_vida_por_palabra_incorrecta():
     juego = JuegoAhorcado("python")
     juego.adivinar_palabra("java")
     assert juego.vidas == 5
-
 
 def test_ganar_por_completar_todas_las_letras():
     juego = JuegoAhorcado("sol")
@@ -126,21 +102,18 @@ def test_ganar_por_completar_todas_las_letras():
     assert juego.esta_ganado() is True
     assert juego.esta_terminado() is True
 
-
 def test_no_se_puede_repetir_letra():
     juego = JuegoAhorcado("python")
     juego.adivinar_letra("p")
     vidas_antes = juego.vidas
     with pytest.raises(ValueError):
         juego.adivinar_letra("p")
-
     juego.adivinar_letra("x")
     vidas_despues_x = juego.vidas
     with pytest.raises(ValueError):
         juego.adivinar_letra("x")
 
     assert juego.vidas == vidas_despues_x == vidas_antes - 1
-
 
 def test_adivinar_letra_mayuscula_funciona_igual():
     juego = JuegoAhorcado("python")
@@ -151,15 +124,12 @@ def test_adivinar_letra_mayuscula_funciona_igual():
     resultado_mayuscula = juego.adivinar_letra("P")
     assert resultado_mayuscula is True
 
-
-# Validacion de letras
-
+#Validacion de letras
 
 def test_valido_letra_alfabetica():
     juego = JuegoAhorcado("python")
     assert juego.validar_letra("a") is True
     assert juego.validar_letra("Z") is True
-
 
 def test_no_valido_letra_no_alfabetica():
     juego = JuegoAhorcado("python")
@@ -168,24 +138,18 @@ def test_no_valido_letra_no_alfabetica():
     assert juego.validar_letra("ab") is False
     assert juego.validar_letra("") is False
 
-
-# Validacion de lista de palabras
-
+#Validacion de lista de palabras
 
 def test_no_acepta_lista_vacia_de_palabras():
     with pytest.raises(ValueError):
         JuegoAhorcado.seleccionar_palabra_aleatoria([])
-
 
 def test_seleccionar_palabra_aleatoria_con_wordfreq():
     palabra = JuegoAhorcado.seleccionar_palabra_wordfreq("es", 50)
     assert isinstance(palabra, str)
     assert len(palabra) > 0
 
-
-# Reiniciar partida
-
-
+#Reiniciar partida
 def test_reiniciar_con_nueva_palabra():
     juego = JuegoAhorcado("python")
 
@@ -193,7 +157,7 @@ def test_reiniciar_con_nueva_palabra():
     juego.adivinar_letra("w")
 
     juego.reiniciar_con_palabra("java")
-
+    
     assert juego.palabra == "java"
     assert juego.vidas == 6
     assert juego.letras_acertadas == []

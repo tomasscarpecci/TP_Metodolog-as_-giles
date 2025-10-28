@@ -1,0 +1,22 @@
+lista_palabras = [
+    "sol",
+    "luna",
+    "estrella",
+    "gato",
+    "perro",
+    "flor",
+    "nube",
+    "cielo",
+    "arbol",
+    "mar",
+    "viento",
+    "fuego",
+    "hoja",
+    "rio",
+    "piedra",
+    "tierra",
+    "libro",
+    "casa",
+    "auto",
+    "reloj"
+]
