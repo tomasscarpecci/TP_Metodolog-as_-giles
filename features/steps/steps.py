@@ -22,8 +22,7 @@ def step_open_browser(context, palabra=None):
     context.driver = webdriver.Chrome(service=service)
 
     if palabra:
-        url = "http://127.0.0.1:5000/set_palabra/" + palabra
-        context.driver.get(url)
+        context.driver.get(f"http://127.0.0.1:5000/set_palabra/{palabra}")
         time.sleep(0.5)
     else:
         context.driver.get("http://127.0.0.1:5000")
@@ -32,85 +31,69 @@ def step_open_browser(context, palabra=None):
 
 @when('ingreso las letras "{letras_csv}" en ese orden')
 @when('ingreso las letras "{letras_csv}"')
-@when(
-    'ingreso las letras "{letras_csv}" en el campo de intento '
-    "y presiono el botón"
-)
+@when('ingreso las letras "{letras_csv}" en el campo de intento y presiono el botón')
 def step_try_letters(context, letras_csv):
     letras = _parse_letters(letras_csv)
-
     for letra in letras:
         input_box = context.driver.find_element(By.NAME, "intento")
         input_box.clear()
         input_box.send_keys(letra)
-
-        button = context.driver.find_element(
-            By.CSS_SELECTOR, "button[type='submit']"
-        )
+        button = context.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
         button.click()
         time.sleep(0.5)
-
 
 @when('ingreso "{texto}" en el campo de intento y presiono el botón')
 def step_input_text(context, texto):
     input_box = context.driver.find_element(By.NAME, "intento")
     input_box.clear()
     input_box.send_keys(texto)
-
-    button = context.driver.find_element(
-        By.CSS_SELECTOR, "button[type='submit']"
-    )
+    button = context.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
     button.click()
     time.sleep(0.5)
 
-
-@then("el juego debe estar ganado")
+@then('el juego debe estar ganado')
 def step_then_won(context):
-    body = context.driver.page_source
-    assert "🎉 ¡Ganaste!" in body, "El juego no muestra mensaje de victoria."
+    estado = context.driver.find_element(By.ID, "estado-juego")
 
+    terminado = estado.get_attribute("data-terminado") == "True"
+    ganado = estado.get_attribute("data-ganado") == "True"
+    derrotado = estado.get_attribute("data-derrotado") == "True"
 
-@then("el juego debe estar derrotado")
+    assert terminado, "El juego no está marcado como terminado."
+    assert ganado, "El juego no está marcado como ganado."
+    assert not derrotado, "El juego aparece como derrotado cuando debería estar ganado."
+
+@then('el juego debe estar derrotado')
 def step_then_lost(context):
-    body = context.driver.page_source
-    assert "💀 Perdiste." in body, "El juego no muestra mensaje de derrota."
+    estado = context.driver.find_element(By.ID, "estado-juego")
+
+    terminado = estado.get_attribute("data-terminado") == "True"
+    ganado = estado.get_attribute("data-ganado") == "True"
+    derrotado = estado.get_attribute("data-derrotado") == "True"
+    vidas = int(estado.get_attribute("data-vidas"))
+
+    assert terminado, "El juego no está marcado como terminado."
+    assert derrotado, "El juego no está marcado como derrotado."
+    assert not ganado, "El juego aparece como ganado cuando debería estar perdido."
 
 
-@then('debo ver el mensaje "{mensaje}" en la página')
-def step_check_message(context, mensaje):
-    body = context.driver.page_source
-    assert mensaje in body, (
-        f"No se encontró el mensaje esperado: {mensaje}"
-    )
-
-
-@then("las vidas deben ser {vidas: d}")
+@then('las vidas deben ser {vidas:d}')
 def step_then_vidas(context, vidas):
     vidas_text = context.driver.find_element(
-        By.XPATH,
-        "//p[starts-with(normalize-space(), 'Vidas restantes')]",
+        By.XPATH, "//p[starts-with(normalize-space(), 'Vidas restantes')]"
     ).text
+    corazones = vidas_text.count('❤️')
 
-    corazones = vidas_text.count("❤️")
     assert corazones == vidas, (
-        f"Esperaba {vidas} vidas, pero se encontraron "
-        f"{corazones} en: {vidas_text}"
+        f"Esperaba {vidas} vidas, pero se encontraron {corazones} en: {vidas_text}"
     )
 
-
-@then("la cantidad de letras erróneas debe ser {cant: d}")
+@then('la cantidad de letras erróneas debe ser {cant:d}')
 def step_then_erroneas(context, cant):
-    errores_text = context.driver.find_element(
-        By.XPATH,
-        "//p[contains(text(), 'Erróneas')]"
-    ).text
-
+    errores_text = context.driver.find_element(By.XPATH, "//p[contains(text(), 'Erróneas')]").text
     letras = errores_text.split(":")[-1].strip()
     num = len(letras.split()) if letras else 0
-
-    assert num == cant, (
-        f"Esperaba {cant} letras erróneas, pero hay {num}"
-    )
+    assert num == cant, f"Esperaba {cant} letras erróneas, pero hay {num}"
 
 
 @then("cierro el navegador")
