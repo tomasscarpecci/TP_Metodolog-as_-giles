@@ -108,4 +108,3 @@ class JuegoAhorcado:
         if not all(c in string.ascii_letters for c in palabra):
             raise ValueError("La palabra solo puede contener letras.")
         return True
-
