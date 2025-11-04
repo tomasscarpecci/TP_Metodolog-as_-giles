@@ -15,7 +15,6 @@ def iniciar_juego(palabra=None):
     session["imagen"] = f"img/ahorcado{6 - juego.vidas}.png"
     return juego
 
-
 def cargar_juego():
     palabra = session.get("palabra")
     if not palabra:
