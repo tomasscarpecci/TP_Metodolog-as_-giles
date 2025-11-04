@@ -42,6 +42,7 @@ def step_try_letters(context, letras_csv):
         button.click()
         time.sleep(0.5)
 
+
 @when('ingreso "{texto}" en el campo de intento y presiono el botón')
 def step_input_text(context, texto):
     input_box = context.driver.find_element(By.NAME, "intento")
@@ -50,6 +51,7 @@ def step_input_text(context, texto):
     button = context.driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
     button.click()
     time.sleep(0.5)
+
 
 @then('el juego debe estar ganado')
 def step_then_won(context):
@@ -63,6 +65,7 @@ def step_then_won(context):
     assert ganado, "El juego no está marcado como ganado."
     assert not derrotado, "El juego aparece como derrotado cuando debería estar ganado."
 
+
 @then('el juego debe estar derrotado')
 def step_then_lost(context):
     estado = context.driver.find_element(By.ID, "estado-juego")
@@ -70,7 +73,6 @@ def step_then_lost(context):
     terminado = estado.get_attribute("data-terminado") == "True"
     ganado = estado.get_attribute("data-ganado") == "True"
     derrotado = estado.get_attribute("data-derrotado") == "True"
-    vidas = int(estado.get_attribute("data-vidas"))
 
     assert terminado, "El juego no está marcado como terminado."
     assert derrotado, "El juego no está marcado como derrotado."
@@ -87,6 +89,7 @@ def step_then_vidas(context, vidas):
     assert corazones == vidas, (
         f"Esperaba {vidas} vidas, pero se encontraron {corazones} en: {vidas_text}"
     )
+
 
 @then('la cantidad de letras erróneas debe ser {cant:d}')
 def step_then_erroneas(context, cant):
